@@ -12,15 +12,22 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      transition: background-image 2s ease-in-out;
+    }
+
+    body.unlocked {
+      background-size: cover;
+      background-position: center;
     }
 
     .container {
-      background: white;
+      background: rgba(255, 255, 255, 0.88);
       padding: 30px;
-      border-radius: 15px;
-      max-width: 500px;
+      border-radius: 18px;
+      max-width: 520px;
       text-align: center;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
     }
 
     input {
@@ -37,14 +44,14 @@
       padding: 10px 25px;
       border: none;
       border-radius: 20px;
-      background: #6a85b6;
+      background: #e17055;
       color: white;
       font-size: 16px;
       cursor: pointer;
     }
 
     button:hover {
-      background: #4f6791;
+      background: #d35400;
     }
 
     .error {
@@ -56,8 +63,23 @@
       display: none;
       text-align: left;
       margin-top: 20px;
-      line-height: 1.6;
+      line-height: 1.7;
       animation: fadeIn 2s ease;
+    }
+
+    .play-btn {
+      display: inline-block;
+      margin: 20px 0;
+      padding: 12px 22px;
+      background: #1DB954;
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .play-btn:hover {
+      background: #17a74a;
     }
 
     @keyframes fadeIn {
@@ -68,16 +90,11 @@
 </head>
 <body>
 
-<!-- 🎵 MÚSICA -->
-<audio id="music" loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
 
   <!-- INTRO -->
   <div id="intro">
-    <h2>Només per a tu ❤️🧸</h2>
+    <h2>Només per a tu 🤍</h2>
     <p>Introdueix la contrasenya</p>
   </div>
 
@@ -90,10 +107,19 @@
   <!-- CARTA -->
   <div class="letter" id="letter">
     <h3>La meva carta</h3>
+
+    <!-- BOTÓ SPOTIFY -->
+    <a class="play-btn" href="https://open.spotify.com/track/1DkL6z0G2nX4R0EoJ3JXzN"
+       target="_blank">
+      ▶ Dona-li al play 🎧
+    </a>
+
     <p>
       Aquí aniria la carta…<br><br>
-      Escriu el que sentis, amb calma.
+      Pots explicar-li què significa per tu, records,
+      o simplement dir-li que és casa.
     </p>
+
     <p>
       Amb tot el meu cor,<br>
       <strong>Pau</strong>
@@ -103,22 +129,37 @@
 </div>
 
 <script>
+  const images = [
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg"
+  ];
+
+  let current = 0;
+
+  function startSlideshow() {
+    document.body.style.backgroundImage = `url(${images[current]})`;
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      document.body.style.backgroundImage = `url(${images[current]})`;
+    }, 6000);
+  }
+
   function checkPassword() {
-    const correctPassword = "23082024"; // 🔑 CONTRASENYA
+    const correctPassword = "23082024";
     const input = document.getElementById("password").value;
     const error = document.getElementById("error");
     const letter = document.getElementById("letter");
-    const music = document.getElementById("music");
     const intro = document.getElementById("intro");
 
     if (input === correctPassword) {
+      document.body.classList.add("unlocked");
       intro.style.display = "none";
       letter.style.display = "block";
       error.textContent = "";
       document.querySelector("input").style.display = "none";
       document.querySelector("button").style.display = "none";
-      music.volume = 0.4;
-      music.play();
+      startSlideshow();
     } else {
       error.textContent = "La contrasenya no és correcta 💔";
     }
@@ -127,3 +168,4 @@
 
 </body>
 </html>
+
