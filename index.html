@@ -74,8 +74,12 @@
 </audio>
 
 <div class="container">
-  <h2>Només per a tu 🤍</h2>
-  <p>Introdueix la contrasenya</p>
+
+  <!-- INTRO -->
+  <div id="intro">
+    <h2>Només per a tu ❤️🧸</h2>
+    <p>Introdueix la contrasenya</p>
+  </div>
 
   <input type="password" id="password" placeholder="Contrasenya">
   <br>
@@ -83,34 +87,38 @@
 
   <p class="error" id="error"></p>
 
+  <!-- CARTA -->
   <div class="letter" id="letter">
     <h3>La meva carta</h3>
     <p>
-      Aquí aniria la carta…
+      Aquí aniria la carta…<br><br>
+      Escriu el que sentis, amb calma.
     </p>
     <p>
       Amb tot el meu cor,<br>
       <strong>Pau</strong>
     </p>
   </div>
+
 </div>
 
 <script>
   function checkPassword() {
-    const correctPassword = "23082024";
+    const correctPassword = "23082024"; // 🔑 CONTRASENYA
     const input = document.getElementById("password").value;
     const error = document.getElementById("error");
     const letter = document.getElementById("letter");
     const music = document.getElementById("music");
+    const intro = document.getElementById("intro");
 
     if (input === correctPassword) {
-      alert("La música hauria de sonar ara");
+      intro.style.display = "none";
       letter.style.display = "block";
       error.textContent = "";
       document.querySelector("input").style.display = "none";
       document.querySelector("button").style.display = "none";
-      music.volume = 0.4; // 🔊 volum suau
-      music.play();       // 🎵 comença la música
+      music.volume = 0.4;
+      music.play();
     } else {
       error.textContent = "La contrasenya no és correcta 💔";
     }
